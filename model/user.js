@@ -7,7 +7,9 @@ const userChema = new db.mongoose.Schema(
         email: { type: String },
         phone: { type: Number },
         password: { type: String },
-        cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'userModel' }],
+        role:{type:String},
+        cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'productModel' }],
+        wishlist:[{type: mongoose.Schema.Types.ObjectId, ref: 'productModel'}]
     }, {
     collection: 'users'
 }
