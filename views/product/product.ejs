@@ -18,6 +18,7 @@
             <th scope="col">Price</th>
             <th scope="col">Imageproduct</th>
             <th scope="col">Description</th>
+            <th scope="col">Category</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -37,6 +38,7 @@
               <td>
                 <%= item.description %>
               </td>
+              <td></td>
               <td>
                 <button class="btn btn-warning" type="button" data-toggle="modal"
                   data-target="#editModal<%= index %>">Sửa</button>
@@ -116,8 +118,8 @@
                   <input type="file" class="form-control" id="imageproduct" name="imageproduct" required>
                 </div>
                 <div class="mb-3">
-                  <label for="role">Select Category</label>
-                  <select class="form-control" id="role" name="role">
+                  <label for="category">Select Category</label>
+                  <select class="form-control" id="category" name="category">
                     <option value="Dink">Dink</option>
                     <option value="Food">Food</option>
                   </select>

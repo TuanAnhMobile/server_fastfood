@@ -97,3 +97,20 @@ exports.deleteUser = async(req,res) => {
     }
 }
 
+exports.addToCart = async (req,res) => {
+    try {
+        const {userId,productId} = req.body;
+        const user = await myMd.userModel.findById(userId);
+        if(!user){
+            console.log("User not found");
+        }
+
+
+        if(!user){
+            console.log("User not found");
+        };
+        
+    } catch (error) {
+        
+    }
+}

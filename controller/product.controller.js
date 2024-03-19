@@ -1,5 +1,6 @@
 const myMd = require('../model/product');
 const fs = require('fs');
+const path = require('path');
 
 
 exports.addCat = async (req, res, next) => {
@@ -14,7 +15,7 @@ exports.addCat = async (req, res, next) => {
         await newCategory.save();
         console.log("Thêm danh mục thành công " +newCategory);
     } catch (error) {
-        console.log("Lỗi thêm danh mục");
+        console.log("Lỗi thêm danh mục :" +error);
     }
     // res.redirect("/listproducts");
 };
@@ -45,25 +46,36 @@ exports.getProduct = async(req,res,next) => {
 
 exports.addProduct = async(req, res, next) => {
     try {
-        const {productname,price,imageproduct,description} = req.body;
-        if(!req.file){
-            console.log("Vui lòng chọn ảnh");
+        const {productname,price,description} = req.body;
+        // if(!req.file){
+        //     console.log("Vui lòng chọn ảnh");
+        // }
+
+        // const image = req.file;
+        // const imagePath = image.path.replace('\\', '//');
+
+        let image = "";
+        if(req.file != null){
+            const destinationPath = path.join(__dirname,"../public/templates");
+            const temFilePath = req.file.path;
+            const originalName = req.file.originalname;
+
+            fs.renameSync(temFilePath,path.join(destinationPath,originalName));
+            
+            image = "/templates/" + originalName;
         }
-
-        const image = req.file;
-        const imagePath = image.path;
-
         const newProduct = new myMd.prodcuctModel({
             productname,
             price,
-            imageproduct:imagePath,
+            imageproduct:image,
             description,
+            category,
         });
 
         await newProduct.save();
         console.log("Thêm thành công: "+newProduct);
     } catch (error) {
-        console.log("Đã có lỗi sảy ra khi thêm sản phẩm mới");
+        console.log("Đã có lỗi sảy ra khi thêm sản phẩm mới : " +error);
     }     
     
 

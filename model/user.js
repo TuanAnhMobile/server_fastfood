@@ -9,7 +9,8 @@ const userChema = new db.mongoose.Schema(
         password: { type: String },
         role:{type:String},
         cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'productModel' }],
-        wishlist:[{type: mongoose.Schema.Types.ObjectId, ref: 'productModel'}]
+        wishlist:[{type: mongoose.Schema.Types.ObjectId, ref: 'productModel'}],
+        address:[{type:String}],
     }, {
     collection: 'users'
 }

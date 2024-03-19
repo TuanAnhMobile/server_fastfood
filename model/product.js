@@ -6,7 +6,7 @@ const productSchame = new db.mongoose.Schema(
         description: { type: String },
         price: { type: Number },
         imageproduct: { type: String },
-        category_id:{type:db.mongoose.Schema.Types.ObjectId,ref:'categoryModel'}
+        category:{type:db.mongoose.Schema.Types.ObjectId,ref:'categoryModel'}
     }, {
     collection: "products",
 }
