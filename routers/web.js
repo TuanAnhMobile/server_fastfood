@@ -54,7 +54,7 @@ const initRouter = (app) => {
 
     //product api
     router.get('/findProduct',productAppi.findProduct);
-    
+    router.get('/getInfoProduct',productAppi.getInfoProdut);
 
     //oder
     router.post('/addOrder',oderCotroller.addOder);

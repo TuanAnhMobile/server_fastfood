@@ -48,3 +48,15 @@ exports.findProduct = async(req,res) => {
         console.log("Đã có lỗi khi xử lý yêu cầu tìm kiếm của bạn " ,error);
     }
 };
+
+exports.getInfoProdut = async (req,res) => {
+    const {productId} = req.body;
+
+    const product = await myMd.prodcuctModel.findById(productId);
+    if(!product){
+        console.log("Product not found");
+    }
+    console.log("Thông tin sản phẩm : "+product);
+    res.status(200).json(product);
+}
+
