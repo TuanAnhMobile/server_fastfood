@@ -26,7 +26,7 @@ exports.getProduct = async(req,res,next) => {
         console.log("Danh sách sản phẩm : " +products);
         res.status(200).json(products);
     } catch (error) {
-        
+        console.log("Đã có lỗi khi lấy danh sách sản phẩm : " +error);
     }
 }
 
