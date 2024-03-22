@@ -129,3 +129,26 @@ exports.deleteOrder = async (req,res) => {
         console.log("Đã xảy ra lỗi khi xóa đơn hàng :" +error);
     }
 }
+
+exports.getTotalByMonth = async (req,res) => {
+    try {
+        const totalsByMonth = await myMd.oderModel.aggregate([
+            {
+                $group:{
+                    _id:{
+                        month:{$month:"$orderDate"},
+                        year:{$year:"$orderDate"},
+                    },
+                    total:{$sum:"$total"}
+                }
+            },
+            {
+                $sort:{"_id.year":1,"_id.month":1}
+            }
+        ]);
+
+        res.render('../views/statistical/statistical.ejs',{totalsByMonth:totalsByMonth});
+    } catch (error) {
+        
+    }
+};

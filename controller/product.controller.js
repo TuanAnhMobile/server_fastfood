@@ -69,7 +69,6 @@ exports.addProduct = async(req, res, next) => {
             price,
             imageproduct:image,
             description,
-            category,
         });
 
         await newProduct.save();

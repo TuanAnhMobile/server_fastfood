@@ -8,7 +8,11 @@ const userChema = new db.mongoose.Schema(
         phone: { type: Number },
         password: { type: String },
         role:{type:String},
-        cart: [{ type: mongoose.Schema.Types.ObjectId, ref: 'productModel' }],
+        cart: [{
+            productId:{type:mongoose.Schema.Types.ObjectId,ref:"productModel"},
+            quantity:{type:Number},
+            totalOder:{type:Number},
+        }],
         wishlist:[{type: mongoose.Schema.Types.ObjectId, ref: 'productModel'}],
         address:[{type:String}],
     }, {

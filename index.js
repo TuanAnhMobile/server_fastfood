@@ -1,13 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const initRouter = require('./routers/web');
+const path = require('path');
 const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine" , "ejs");
-app.use(express.static(__dirname + 'upload'))
+app.use(express.static(path.join(__dirname + 'upload')));
 
 initRouter(app);
 

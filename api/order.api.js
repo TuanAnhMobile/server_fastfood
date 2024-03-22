@@ -3,7 +3,7 @@ const msg = "";
 
 exports.addOder = async (req, res) => {
     try {
-        const {username,total,address,items} = req.body;
+        const {username,total,address,orderId} = req.body;
         
         if(!Array.isArray(items)){
             console.log("Item is not an array");

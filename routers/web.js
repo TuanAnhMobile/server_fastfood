@@ -6,6 +6,7 @@ const orderApi = require('../api/order.api');
 const productController = require('../controller/product.controller');
 const userController = require('../controller/user.controller');
 const oderCotroller = require('../controller/oder.controller');
+const userMiddleware = require('../middleware/login.middleware');
 const multer = require('multer');
 var upload = multer({dest:'../upload'});
 
@@ -28,7 +29,10 @@ const initRouter = (app) => {
     router.get('/api/getInfo',userApi.getInfomation);
     router.post('/addAddress',userApi.addAddress);
     router.get('/getAddress',userApi.getAddress);
-    
+    router.post('/addToWithList',userApi.addToWithList);
+    router.get('/getWithList',userApi.getWithList);
+    router.post('/addToCart',userApi.addCart);
+    router.get('/getCart',userApi.getCart);
 
 
 
@@ -55,6 +59,7 @@ const initRouter = (app) => {
     //product api
     router.get('/findProduct',productAppi.findProduct);
     router.get('/getInfoProduct',productAppi.getInfoProdut);
+    router.get('/getProduct',productAppi.getProduct);
 
     //oder
     router.post('/addOrder',oderCotroller.addOder);

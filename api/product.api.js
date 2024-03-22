@@ -24,7 +24,7 @@ exports.getProduct = async(req,res,next) => {
     try {
         const products = await myMd.prodcuctModel.find();
         console.log("Danh sách sản phẩm : " +products);
-        res.status(200).json({ products });
+        res.status(200).json(products);
     } catch (error) {
         
     }
