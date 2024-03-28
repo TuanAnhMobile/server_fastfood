@@ -7,8 +7,9 @@ const productController = require('../controller/product.controller');
 const userController = require('../controller/user.controller');
 const oderCotroller = require('../controller/oder.controller');
 const userMiddleware = require('../middleware/login.middleware');
+const statisticalControll = require('../controller/statistical.controller');
 const multer = require('multer');
-var upload = multer({dest:'../upload'});
+var upload = multer({dest:'../public/templates'});
 
 // const upload = multer({
 //     storage:multer.diskStorage({
@@ -52,7 +53,8 @@ const initRouter = (app) => {
     router.get('/listproducts',productController.getProduct);
     router.post('/addProduct',upload.single('imageproduct'),productController.addProduct);
     router.post('/deleteproduct/:idP',productController.deleteProduct);
-    router.post('/addCat',productController.addCat);
+    router.post('/addCat',upload.single("imageCat"),productController.addCat);
+    // router.get('/getCat',productController.getCat);
     router.get('/findProduct',productController.findProduct);
 
 
@@ -60,16 +62,29 @@ const initRouter = (app) => {
     router.get('/findProduct',productAppi.findProduct);
     router.get('/getInfoProduct',productAppi.getInfoProdut);
     router.get('/getProduct',productAppi.getProduct);
+    router.get('/getCat',productAppi.getCat);
+    router.post('/getProByCat',productAppi.getProductByCat);
 
     //oder
     router.post('/addOrder',oderCotroller.addOder);
     router.get('/getOrder',oderCotroller.getOder);
+  
     router.get('/getPreparing',oderCotroller.getPreparingGoods);
     router.get('/getAreDelivering',oderCotroller.getAreDelivering);
     router.get('/getDelived',oderCotroller.getDelived);
     router.post('/updateStatus/:orderId',oderCotroller.updateStatus);
     router.post('/deleteOrder/:idOrder',oderCotroller.deleteOrder);
     router.post('/api/addOrder',orderApi.addOder);
+    router.get('/total',statisticalControll.getTotalByDate);
+
+
+    //orders api
+    router.get('/getConfirm',orderApi.getOder);
+    router.get('/getgetPreparingGoods',orderApi.getPreparingGoods);
+    router.get('/getAreDelivering',orderApi.getAreDelivering);
+    router.get('/getDelived',orderApi.getDelived);
+    router.get('/mostBoughtProduct',orderApi.mostBoughtProduct);
+    router.get('/getAllOrder',orderApi.getAllOder);
     return app.use('/',router);
 }
 

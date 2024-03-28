@@ -6,54 +6,6 @@ const path = require('path');
 exports.addCat = async (req, res, next) => {
     try {
         const {category} = req.body;
-        if(category){
-            console.log("Danh mục đã tồn tại");
-            return;
-        }        
-        const newCategory = new myMd.categoryModel({category});
-        
-        await newCategory.save();
-        console.log("Thêm danh mục thành công " +newCategory);
-    } catch (error) {
-        console.log("Lỗi thêm danh mục :" +error);
-    }
-    // res.redirect("/listproducts");
-};
-
-
-exports.getCat = async (req,res) => {
-    try {
-        const cats = await myMd.categoryModel.find();
-        console.log("Danh sách cat :" +cats);
-        res.render('../views/product/product.ejs',{cats:cats});
-    } catch (error) {
-        console.log("Đã có lỗi khi lấy danh sách cat : " +error);   
-    }
-   
-}
-
-
-exports.getProduct = async(req,res,next) => {
-    try {
-        const products = await myMd.prodcuctModel.find();
-        console.log("Danh sách sản phẩm : " +products);
-        res.render("../views/product/product.ejs",{products:products});
-    } catch (error) {
-        console.log("Đã có lỗi khi lấy danh sách người dùng");
-    }
-};
-
-
-exports.addProduct = async(req, res, next) => {
-    try {
-        const {productname,price,description} = req.body;
-        // if(!req.file){
-        //     console.log("Vui lòng chọn ảnh");
-        // }
-
-        // const image = req.file;
-        // const imagePath = image.path.replace('\\', '//');
-
         let image = "";
         if(req.file != null){
             const destinationPath = path.join(__dirname,"../public/templates");
@@ -64,11 +16,55 @@ exports.addProduct = async(req, res, next) => {
             
             image = "/templates/" + originalName;
         }
+        if(category){
+            console.log("Danh mục đã tồn tại");
+            
+        }        
+        const newCategory = new myMd.categoryModel({category,imageCat:image});
+        
+        await newCategory.save();
+        console.log("Thêm danh mục thành công " +newCategory);
+    } catch (error) {
+        console.log("Lỗi thêm danh mục :" +error);
+    }
+    res.redirect("/listproducts");
+};
+
+
+
+exports.getProduct = async(req,res,next) => {
+    try {
+        const products = await myMd.prodcuctModel.find();
+        const cats = await myMd.categoryModel.find();
+        console.log("Danh sách cat :" +cats);
+        console.log("Danh sách sản phẩm : " +products);
+        res.render("../views/product/product.ejs",{products:products,cats:cats});
+    } catch (error) {
+        console.log("Đã có lỗi khi lấy danh sách người dùng");
+    }
+};
+
+
+exports.addProduct = async(req, res, next) => {
+    try {
+        const {productname,price,description,category} = req.body;
+
+        let image = "";
+        if(req.file != null){
+            const destinationPath = path.join(__dirname,"../public/templates");
+            const temFilePath = req.file.path;
+            const originalName = req.file.originalname;
+
+            fs.renameSync(temFilePath,path.join(destinationPath,originalName));
+            
+            image = "../public/templates/" + originalName;
+        }
         const newProduct = new myMd.prodcuctModel({
             productname,
             price,
             imageproduct:image,
             description,
+            category,
         });
 
         await newProduct.save();

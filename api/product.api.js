@@ -60,3 +60,23 @@ exports.getInfoProdut = async (req,res) => {
     res.status(200).json(product);
 }
 
+exports.getCat = async (req,res) => {
+    try {
+        const cat = await myMd.categoryModel.find();
+        console.log("Danh sách danh mục :" +cat);
+        res.json(cat);
+    } catch (error) {
+        console.log("Đã có lỗi trong quá trình hiển thị danh mục : "+error);
+    }
+};
+
+exports.getProductByCat = async (req,res) => {
+    try {
+        const category = req.body.category;
+        const product = await myMd.prodcuctModel.find({category:category});
+        console.log(product);
+        res.json(product);
+    } catch (error) {
+        console.log("Đã có lỗi khi lấy danh sách sản phẩm theo danh mục : "+error);      
+    }
+};

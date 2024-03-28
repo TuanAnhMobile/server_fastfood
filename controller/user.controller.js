@@ -27,6 +27,7 @@ exports.register = async (req, res, next) => {
             role:newUserRole,
             cart: [],
             wishlist: [],
+        
         });
         await newUser.save();
         msg = "Đăng ký người dùng thành công";

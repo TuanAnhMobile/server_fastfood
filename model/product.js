@@ -6,7 +6,7 @@ const productSchame = new db.mongoose.Schema(
         description: { type: String },
         price: { type: Number },
         imageproduct: { type: String },
-        // category:{type:db.mongoose.Schema.Types.ObjectId,ref:'categoryModel'}
+        category:{type:String}
     }, {
     collection: "products",
 }
@@ -15,6 +15,7 @@ const productSchame = new db.mongoose.Schema(
 const categoryChema = new db.mongoose.Schema(
     {
         category: { type: String },
+        imageCat:{type:String},
     },
     {
         collection: "categories",

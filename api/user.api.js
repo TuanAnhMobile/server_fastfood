@@ -21,7 +21,9 @@ exports.register = async (req, res, next) => {
                 password,
                 role: "1",
                 cart: [],
+                address:[],
                 wishlist: [],
+                order:[]
             });
 
             await newUser.save();
@@ -60,7 +62,7 @@ exports.login = async (req, res, next) => {
             const token = jwt.sign(userPayload, 'ijbfehgvfhgvdw', { expiresIn: '1h' });
             console.log(userPayload);
             console.log(("Đăng nhập thành công"));
-            res.status(200).json({ message: "Đăng nhập thành công", token: token, user: userPayload });
+            res.status(200).json(userPayload);
         }
 
         
@@ -180,7 +182,7 @@ exports.getWithList = async (req, res) => {
 
 exports.addCart = async (req, res) => {
     try {
-        const {userId,productId,quantity,totalOder} = req.body;
+        const {userId,productId,quantity,price,totalOder} = req.body;
 
         const user = await myMd.userModel.findById(userId);
         if(!user){
@@ -193,7 +195,7 @@ exports.addCart = async (req, res) => {
             user.cart[existingProductIndex].totalOder += totalOder;
         } else {
             // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm mới vào giỏ hàng
-            user.cart.push({ productId: productId, quantity: quantity, totalOder: totalOder });
+            user.cart.push({ productId: productId,price:price ,quantity: quantity, totalOder: totalOder });
         }
         user.save();
         console.log("cart : "+user.cart);

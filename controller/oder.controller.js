@@ -72,7 +72,7 @@ exports.getAreDelivering = async (req,res) => {
 exports.getDelived = async (req,res) => {
     try {
         const status = req.params.status;
-        const oders = await myMd.oderModel.find({status:"delivered"});
+        const oders = await myMd.oderModel.find({status:"delivered"}).sort({oderDate:1});
         console.log("Oder : " + oders);
         res.render('../views/order/delived.ejs', { oders: oders });
     } catch (error) {
