@@ -33,6 +33,7 @@
                                     <p class="card-text">Tổng tiền: $<%= order.total %></p>
                                     <p class="card-text">Ngày đặt hàng: <%= new Date(order.oderDate).toLocaleDateString() %></p>
                                     <p class="card-text">Địa chỉ: <%= order.address %></p>
+                                    <p class="card-text">Phương thức thanh toán : <%= order.payment_method %></p>
                                     <div class="d-flex justify-content-between">
                                         <div class="btn-group" role="group">
                                             <!-- Sử dụng flexbox để căn chỉnh ngang hàng -->

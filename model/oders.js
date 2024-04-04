@@ -1,4 +1,4 @@
-const { default: mongoose } = require('mongoose');
+const mongoose  = require('mongoose');
 const db = require('./db');
 
 const oderSchema = new db.mongoose.Schema(
@@ -7,6 +7,7 @@ const oderSchema = new db.mongoose.Schema(
         total: { type: Number },
         oderDate: { type: Date },
         address:{ type:String},
+        payment_method:{type:String},
         status: { type: String },
         items:[{
             productname:{type: String},

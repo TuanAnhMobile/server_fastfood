@@ -10,8 +10,9 @@ const userChema = new db.mongoose.Schema(
         role:{type:String},
         cart: [{
             productId:{type:mongoose.Schema.Types.ObjectId,ref:"productModel"},
+            price:{type:Number},
             quantity:{type:Number},
-            totalOder:{type:Number},
+            total_order:{type:Number},
         }],
         wishlist:[{type: mongoose.Schema.Types.ObjectId, ref: 'productModel'}],
         address:[{type:String}],

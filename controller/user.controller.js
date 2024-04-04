@@ -13,18 +13,13 @@ exports.register = async (req, res, next) => {
         
     }
     try {
-        let newUserRole;
-        if(role === 'admin'){
-            newUserRole = 0;
-        }else if(role === 'user'){
-            newUserRole = 1;
-        }
+     
         const newUser = new myMd.userModel({
             username,
             email,
             phone,
             password,
-            role:newUserRole,
+            role,
             cart: [],
             wishlist: [],
         
@@ -50,8 +45,10 @@ exports.login = async (req, res, next) => {
                 msg = "Người dùng không tồn tại"
             }
 
-            if(user.role === 1){
-                throw new Error("Tài khoản không có quyền truy cập");
+            if(user.role === 'user'){
+                msg = "Người dùng không có quyền truy cập";
+                res.render('auth/login', { msg: msg });
+                return;
                 
             }
 

@@ -1,10 +1,10 @@
 const myMd = require('../model/oders');
-const myMdU = require('../model/user');
+const myMdP = require('../model/product');
 const msg = "";
 
 exports.addOder = async (req, res) => {
     try {
-        const {username, total, address, orderId,items } = req.body;
+        const {userId,username, total, address,payment_method,items } = req.body;
 
         if (!Array.isArray(items)) {
             console.log("Item is not an array");
@@ -16,18 +16,19 @@ exports.addOder = async (req, res) => {
             price: item.price,
         }));
         const newOrder = new myMd.oderModel({
+            userId,
             username,
             total,
             oderDate: Date.now(),
             address,
+            payment_method,
             items: newItems,
             status: "Confirm",
         });
 
         const saveOrder = await newOrder.save();
        
-    
-        console.log(saveOrder._id);
+        console.log(saveOrder);
         console.log("Đơn hàng đã được đặt thành công");
         res.status(200).json({ newOrder, msg: `Đơn hàng ${saveOrder._id} đặt hàng thành công` });
     } catch (error) {
@@ -47,7 +48,8 @@ exports.getAllOder = async (req, res) => {
 
 exports.getOder = async (req, res) => {
     try {
-        const oders = await myMd.oderModel.find({ status: "Confirm" });
+        const {username} = req.body;
+        const oders = await myMd.oderModel.find({ status: "Confirm",username:username });
         console.log("Oder : " + oders);
         res.json(oders);
     } catch (error) {
@@ -94,7 +96,7 @@ exports.mostBoughtProduct = async (req,res) => {
                 $unwind:"$items"
             },{
                 $group:{
-                    _id:"$items.productname",
+                    _id:"$items._id",
                     totalQuantity:{$sum:"$items.quantity"}
                 }
             },{
@@ -103,6 +105,8 @@ exports.mostBoughtProduct = async (req,res) => {
                 $limit:10
             }
         ]);
+
+        const products = 
 
         res.json(mostBoughtProduct);
     } catch (error) {
