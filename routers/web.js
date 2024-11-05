@@ -10,7 +10,7 @@ const oderCotroller = require('../controller/oder.controller');
 const userMiddleware = require('../middleware/login.middleware');
 const statisticalControll = require('../controller/statistical.controller');
 const multer = require('multer');
-var upload = multer({ dest: '../public/templates' });
+var upload = multer({ dest: 'templates/' });
 
 // const upload = multer({
 //     storage:multer.diskStorage({
@@ -61,6 +61,7 @@ const initRouter = (app) => {
     router.post('/addCat', upload.single("imageCat"), productController.addCat);
     // router.get('/getCat',productController.getCat);
     router.get('/findProduct', productController.findProduct);
+    router.post("/editProduct",productController.updateProduct);
 
 
     //product api
@@ -91,10 +92,10 @@ const initRouter = (app) => {
 
 
     //orders api
-    router.get('/getConfirm', orderApi.getOder);
-    router.get('/getgetPreparingGoods', orderApi.getPreparingGoods);
-    router.get('/getAreDelivering', orderApi.getAreDelivering);
-    router.get('/getDelived', orderApi.getDelived);
+    router.post('/getConfirm', orderApi.getOder);
+    router.post('/getgetPreparingGoods', orderApi.getPreparingGoods);
+    router.post('/getAreDelivering', orderApi.getAreDelivering);
+    router.post('/getDelived', orderApi.getDelived);
     router.get('/mostBoughtProduct', orderApi.mostBoughtProduct);
     router.get('/getAllOrder', orderApi.getAllOder);
     return app.use('/', router);

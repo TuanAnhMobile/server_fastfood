@@ -50,39 +50,41 @@ exports.getOder = async (req, res) => {
     try {
         const {username} = req.body;
         const oders = await myMd.oderModel.find({ status: "Confirm",username:username });
-        console.log("Oder : " + oders);
+        console.log("Oder1 : " + oders);
         res.json(oders);
     } catch (error) {
-        console.log("Đã có lỗi xảy ra khi lấy danh sách oder " + error);
+        console.log("Đã có lỗi xảy ra khi lấy danh sách oder1 " + error);
     }
 }
 exports.getPreparingGoods = async (req, res) => {
     try {
-        const oders = await myMd.oderModel.find({ status: "preparing goods" });
-        console.log("Oder : " + oders);
+        const {username} = req.body;
+        const oders = await myMd.oderModel.find({ status: "preparing goods",username:username });
+        console.log("Oder2 : " + oders);
         res.json(oders);
     } catch (error) {
-        console.log("Đã có lỗi xảy ra khi lấy danh sách oder " + error);
+        console.log("Đã có lỗi xảy ra khi lấy danh sách oder2 " + error);
     }
 }
 
 exports.getAreDelivering = async (req, res) => {
     try {
-        const status = req.params.status;
-        const oders = await myMd.oderModel.find({ status: "are delivering" });
-        console.log("Oder : " + oders);
+        const {username} = req.body;
+        const oders = await myMd.oderModel.find({ status: "are delivering" ,username:username});
+        console.log("Oder3 : " + oders);
         res.json(oders);
     } catch (error) {
-        console.log("Đã có lỗi xảy ra khi lấy danh sách oder " + error);
+        console.log("Đã có lỗi xảy ra khi lấy danh sách oder3 " + error);
     }
 }
 exports.getDelived = async (req, res) => {
     try {
-        const oders = await myMd.oderModel.find({ status: "delivered" });
-        console.log("Oder : " + oders);
+        const {username} = req.body;
+        const oders = await myMd.oderModel.find({ status: "delivered",username:username });
+        console.log("Oder4 : " + oders);
         res.json(oders);
     } catch (error) {
-        console.log("Đã có lỗi xảy ra khi lấy danh sách oder " + error);
+        console.log("Đã có lỗi xảy ra khi lấy danh sách oder4 " + error);
     }
 }
 

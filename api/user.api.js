@@ -276,7 +276,7 @@ exports.ChangePassword = async (req, res) => {
         const user = await myMd.userModel.findOne({email:email});
         if(!user){
             console.log("User not found");
-            res.json({message: "User not found"});
+            res.json({message: "Người dùng không tồn tại"});
         }
 
         if(user.password !== password){
